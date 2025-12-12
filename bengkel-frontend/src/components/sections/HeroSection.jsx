@@ -77,7 +77,7 @@ const HeroSection = () => {
           <div className="relative">
             <div className="bg-white rounded-2xl shadow-2xl p-6 transform rotate-2 hover:rotate-0 transition-transform duration-500">
               <img 
-                src="https://images.unsplash.com/photo-1563720223480-8bfd618a1a99?ixlib=rb-4.0.3" 
+                src="https://i.ibb.co.com/Xfn5tvF8/bengkel.jpg"
                 alt="Modern Car Service"
                 className="rounded-xl w-full h-96 object-cover"
               />

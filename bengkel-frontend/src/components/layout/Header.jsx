@@ -50,7 +50,7 @@ const Header = () => {
                 <span className="text-white font-bold text-lg">B</span>
               </div>
               <div>
-                <h1 className="text-xl font-bold text-primary-600">AutoCare</h1>
+                <h1 className="text-xl font-bold text-primary-600">TDY Auto Service</h1>
                 <p className="text-xs text-gray-500">Professional Service</p>
               </div>
             </div>
