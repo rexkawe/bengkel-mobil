@@ -45,9 +45,13 @@ const Header = () => {
         <nav className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             {/* Logo */}
-            <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-r from-primary-500 to-accent-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">B</span>
+            <div className="flex items-center space-x-3">
+              <div className="h-12 flex items-center justify-center rounded-lg overflow-hidden">
+                <img
+                  src="https://i.ibb.co.com/KjLPMgbC/logo-bengkel.jpg"
+                  alt="TDY Auto Service Logo"
+                  className="h-8 w-auto object-contain"
+                />
               </div>
               <div>
                 <h1 className="text-xl font-bold text-primary-600">TDY Auto Service</h1>
