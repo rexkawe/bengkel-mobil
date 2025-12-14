@@ -45,7 +45,7 @@ const RegisterForm = ({ onSwitchToLogin }) => {
           Buat Akun Baru
         </h2>
         <p className="text-gray-600">
-          Bergabung dengan Adit AutoCare sekarang
+          Bergabung dengan TDY Auto Service sekarang
         </p>
       </div>
 

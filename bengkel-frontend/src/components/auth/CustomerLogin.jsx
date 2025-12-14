@@ -41,7 +41,7 @@ const CustomerLogin = () => {
             Masuk ke Akun Anda
           </h2>
           <p className="text-gray-600">
-            Selamat datang kembali di AutoCare
+            Selamat datang kembali di TDY Auto Service
           </p>
         </div>
 
@@ -163,7 +163,7 @@ const CustomerLogin = () => {
           {/* Admin Login Link */}
           <div className="mt-4 pt-4 border-t border-gray-200 text-center">
             <p className="text-sm text-gray-500">
-              Staff AutoCare?{' '}
+              Staff TDY Auto Service?{' '}
               <Link
                 to="/admin/login"
                 className="text-primary-600 hover:text-primary-700 font-semibold"

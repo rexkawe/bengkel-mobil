@@ -18,7 +18,7 @@ const HeroSection = () => {
             <div className="space-y-4">
               <div className="inline-flex items-center px-4 py-2 bg-accent-50 text-accent-700 rounded-full text-sm font-medium">
                 <ShieldCheckIcon className="h-4 w-4 mr-2" />
-                Terpercaya sejak 2010
+                Terpercaya sejak 2014
               </div>
               
               <h1 className="text-5xl lg:text-6xl font-bold text-primary-700 leading-tight">
@@ -38,7 +38,7 @@ const HeroSection = () => {
               {[
                 'Servis berkala dengan harga terjangkau',
                 'Teknisi bersertifikat dan berpengalaman',
-                'Garansi 6 bulan untuk setiap servis',
+                'Garansi untuk setiap servis',
                 'Estimasi biaya real-time'
               ].map((feature, index) => (
                 <div key={index} className="flex items-center space-x-3">
@@ -62,7 +62,7 @@ const HeroSection = () => {
             <div className="grid grid-cols-3 gap-6 pt-8">
               {[
                 { number: '10K+', label: 'Pelanggan Puas' },
-                { number: '15+', label: 'Tahun Pengalaman' },
+                { number: '10+', label: 'Tahun Pengalaman' },
                 { number: '24/7', label: 'Layanan Darurat' }
               ].map((stat, index) => (
                 <div key={index} className="text-center">
@@ -104,7 +104,7 @@ const HeroSection = () => {
                 </div>
                 <div>
                   <div className="font-semibold text-primary-700">Garansi</div>
-                  <div className="text-sm text-primary-500">6 Bulan</div>
+                  <div className="text-sm text-primary-500">7 Hari - 1 Bulan</div>
                 </div>
               </div>
             </div>

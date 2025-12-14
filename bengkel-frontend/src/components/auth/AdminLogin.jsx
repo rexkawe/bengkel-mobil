@@ -46,7 +46,7 @@ const AdminLogin = () => {
             Admin Panel
           </h2>
           <p className="text-gray-600">
-            Masuk ke panel administrasi AutoCare
+            Masuk ke panel administrasi Auto Service
           </p>
         </div>
 
@@ -152,7 +152,7 @@ const AdminLogin = () => {
           <div className="flex items-center">
             <ShieldCheckIcon className="h-5 w-5 text-blue-500 mr-2" />
             <p className="text-sm text-blue-700">
-              <strong>Keamanan:</strong> Hanya untuk staff AutoCare yang berwenang
+              <strong>Keamanan:</strong> Hanya untuk staff TDY Auto Service yang berwenang
             </p>
           </div>
         </div>

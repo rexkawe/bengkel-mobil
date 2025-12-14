@@ -65,7 +65,7 @@ const ChatWindow = () => {
               <span className="font-bold">A</span>
             </div>
             <div>
-              <h3 className="font-semibold">Adit AutoCare Support</h3>
+              <h3 className="font-semibold">TDY Auto Service Support</h3>
               <div className="flex items-center space-x-1 text-sm text-white text-opacity-80">
                 <div className="w-2 h-2 bg-green-400 rounded-full"></div>
                 <span>Online</span>

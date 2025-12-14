@@ -93,7 +93,7 @@ export function ChatProvider({ children }) {
           type: 'ADD_MESSAGE',
           payload: {
             id: Date.now(),
-            text: 'Halo! Selamat datang di Adit AutoCare. 👋 Saya di sini untuk membantu Anda dengan informasi servis, booking, atau pertanyaan lainnya tentang kendaraan Anda.',
+            text: 'Halo! Selamat datang di TDY Auto Service. 👋 Saya di sini untuk membantu Anda dengan informasi servis, booking, atau pertanyaan lainnya tentang kendaraan Anda.',
             sender: 'admin',
             timestamp: new Date(),
             read: true
@@ -131,14 +131,14 @@ export function ChatProvider({ children }) {
       if (lastMessage.sender === 'user') {
         const timer = setTimeout(() => {
           const responses = {
-            'halo': 'Halo! 😊 Selamat datang di Adit AutoCare. Ada yang bisa saya bantu mengenai kendaraan Anda?',
+            'halo': 'Halo! 😊 Selamat datang di TDY Auto Service. Ada yang bisa saya bantu mengenai kendaraan Anda?',
             'servis': 'Kami menyediakan berbagai layanan servis profesional:\n\n🔧 **Servis Berkala** - Rp 350.000\n⚙️ **Tune Up Mesin** - Rp 550.000\n🚗 **Ganti Ban & Spooring** - Rp 200.000\n🛑 **Service Rem** - Rp 450.000\n❄️ **Service AC** - Rp 300.000\n✨ **Full Body Treatment** - Rp 750.000\n\nServis mana yang Anda butuhkan?',
-            'harga': 'Berikut estimasi harga layanan kami:\n\n• Servis Berkala: Rp 350.000\n• Tune Up Mesin: Rp 550.000\n• Ganti Ban: Rp 200.000\n• Service Rem: Rp 450.000\n• Service AC: Rp 300.000\n• Full Body Treatment: Rp 750.000\n\n*Harga dapat berubah tergantung kondisi kendaraan*',
-            'jadwal': '🕒 **Jam Operasional Adit AutoCare:**\n\n📅 Senin - Jumat: 08:00 - 18:00\n📅 Sabtu: 08:00 - 16:00\n📅 Minggu: Tutup\n\n📍 **Lokasi:** Jl. Bengkel Modern No. 123, Jakarta\n📞 **Telepon:** (021) 1234-5678',
+            'harga': 'Berikut estimasi harga layanan kami:\n\n• Servis Berkala: Rp 350.000\n• Tune Up Mesin: Rp 550.000\n• Ganti Ban: Rp 200.000\n• Service Rem: Rp 450.000\n• Service AC: Rp 300.000\n• Full Body Treatment: Rp 750.000\n\n(Harga dapat berubah tergantung kondisi kendaraan)',
+            'jadwal': '🕒 **Jam Operasional TDY Auto Service:**\n\n📅 Senin - Jumat: 08:00 - 18:00\n📅 Sabtu: 08:00 - 16:00\n📅 Minggu: Tutup\n\n📍 **Lokasi:** Jl. Bengkel Modern No. 123, Jakarta\n📞 **Telepon:** (021) 1234-5678',
             'booking': 'Untuk booking servis, Anda bisa:\n\n1. **Online:** Klik tombol "Booking Servis" di website kami\n2. **Telepon:** Hubungi (021) 1234-5678\n3. **Datang Langsung:** Ke bengkel kami di jam operasional\n\nMau booking untuk layanan apa?',
-            'lokasi': '📍 **Adit AutoCare Bengkel Modern**\nJl. Bengkel Modern No. 123\nJakarta Selatan 12560\n\n🚗 *Parkir luas tersedia*\n🅿️ *Gratis parkir untuk customer*',
+            'lokasi': '📍 **TDY AUTO SERVICE**\nJl. H. Muhari, RT.02/rw01, Serua, Kec. Bojongsari, Kota Depok, Jawa Barat 16517\n🚗 *Parkir luas tersedia*\n🅿️ *Gratis parkir untuk customer*',
             'darurat': 'Untuk layanan darurat di luar jam operasional, silakan hubungi:\n\n📞 **Emergency Contact:** 0812-3456-7890\n\nKami siap membantu 24 jam untuk kondisi darurat.',
-            'default': 'Terima kasih sudah menghubungi Adit AutoCare! 🙏\n\nUntuk informasi lebih detail atau konsultasi teknis, silakan:\n\n• Hubungi kami di (021) 1234-5678\n• Datang langsung ke bengkel kami\n• Atau booking servis melalui website\n\nAda hal lain yang bisa saya bantu?'
+            'default': 'Terima kasih sudah menghubungi TDY Auto Service! 🙏\n\nUntuk informasi lebih detail atau konsultasi teknis, silakan:\n\n• Hubungi kami di (021) 1234-5678\n• Datang langsung ke bengkel kami\n• Atau booking servis melalui website\n\nAda hal lain yang bisa saya bantu?'
           };
 
           let response = responses.default;

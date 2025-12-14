@@ -36,11 +36,13 @@ const AdminLayout = ({ children }) => {
       <div className="w-72 bg-white shadow-2xl flex flex-col z-20 transition-colors duration-200">
         <div className="p-8">
           <div className="flex items-center space-x-3 text-blue-600">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-200">
-              B
-            </div>
+            <img
+                  src="https://i.ibb.co.com/KjLPMgbC/logo-bengkel.jpg"
+                  alt="TDY Auto Service Logo"
+                  className="h-8 w-auto object-contain"
+                />
             <div>
-              <h1 className="text-xl font-bold text-gray-800 tracking-tight">Bengkel Pro</h1>
+              <h1 className="text-xl font-bold text-gray-800 tracking-tight">TDY Auto Service</h1>
               <p className="text-xs text-gray-500 font-medium tracking-wide">ADMINISTRATOR</p>
             </div>
           </div>

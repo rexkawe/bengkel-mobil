@@ -48,7 +48,7 @@ const RegisterPage = () => {
             Daftar Akun Baru
           </h2>
           <p className="text-gray-600">
-            Bergabung dengan AutoCare untuk pengalaman servis terbaik
+            Bergabung dengan TDY Auto Service untuk pengalaman servis terbaik
           </p>
         </div>
 
