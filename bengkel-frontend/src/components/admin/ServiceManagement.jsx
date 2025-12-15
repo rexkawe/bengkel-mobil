@@ -183,7 +183,7 @@ const ServiceManagement = () => {
             </div>
             <button
               onClick={() => setShowForm(true)}
-              className="bg-accent-500 text-white px-6 py-3 rounded-lg hover:bg-accent-600 transition-colors font-semibold flex items-center space-x-2"
+              className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors font-semibold flex items-center space-x-2"
             >
               <PlusIcon className="h-5 w-5" />
               <span>Tambah Layanan</span>
@@ -317,7 +317,7 @@ const ServiceManagement = () => {
                     <button
                       type="button"
                       onClick={addFeatureField}
-                      className="text-sm text-accent-600 hover:text-accent-700 font-medium"
+                      className="text-sm text-blue-600 hover:text-blue-700 font-medium"
                     >
                       + Tambah Fitur
                     </button>
@@ -371,7 +371,7 @@ const ServiceManagement = () => {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="px-6 py-2 bg-accent-500 text-white rounded-lg hover:bg-accent-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+                    className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
                   >
                     {isLoading ? 'Menyimpan...' : (editingService ? 'Update' : 'Simpan')}
                   </button>

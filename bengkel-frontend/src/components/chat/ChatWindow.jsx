@@ -58,11 +58,11 @@ const ChatWindow = () => {
   return (
     <div className="fixed bottom-20 right-6 w-80 lg:w-96 h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col z-50">
       {/* Chat Header */}
-      <div className="bg-gradient-to-r from-primary-500 to-accent-500 text-white p-4 rounded-t-2xl">
+      <div className="bg-gradient-to-r from-blue-600 via-blue-800 to-gray-900 text-white p-4 rounded-t-2xl">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-              <span className="font-bold">A</span>
+              <span className="font-bold">TDY</span>
             </div>
             <div>
               <h3 className="font-semibold">TDY Auto Service Support</h3>
@@ -140,12 +140,12 @@ const ChatWindow = () => {
             })}
             onKeyPress={handleKeyPress}
             placeholder="Ketik pesan Anda..."
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent"
+            className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
           <button
             type="submit"
             disabled={!currentMessage.trim()}
-            className="p-2 bg-accent-500 text-white rounded-full hover:bg-accent-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+            className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
           >
             <PaperAirplaneIcon className="h-5 w-5" />
           </button>

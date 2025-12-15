@@ -163,8 +163,8 @@ const UserDashboard = () => {
                         </div>
                         <div>
                           <p className="text-sm text-gray-500 mb-1">Lokasi Bengkel</p>
-                          <p className="text-gray-900 font-medium">Bengkel Mobil Premier</p>
-                          <p className="text-sm text-gray-500">Jl. Raya Otomotif No. 1</p>
+                          <p className="text-gray-900 font-medium">TDY Auto Service</p>
+                          <p className="text-sm text-gray-500">Jl. H. Muhari, RT.02/rw01, Serua, Kec. Bojongsari, Kota Depok, Jawa Barat 16517</p>
                         </div>
                       </div>
                     </div>
@@ -288,7 +288,7 @@ const UserDashboard = () => {
                   Butuh bantuan darurat di jalan? Tim mekanik kami siap membantu Anda.
                 </p>
                 <a
-                  href="https://wa.me/6281234567890"
+                  href="https://wa.me/6281288031729"
                   target="_blank"
                   rel="noreferrer"
                   className="block w-full text-center bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl transition-colors"

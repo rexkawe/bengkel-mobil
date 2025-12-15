@@ -17,7 +17,7 @@ const ChatTrigger = () => {
       {/* Chat Trigger Button */}
       <button
         onClick={handleToggleChat}
-        className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-accent-500 to-accent-600 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-300 z-40 group"
+        className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-300 z-40 group"
       >
         {isChatOpen ? (
           <XMarkIcon className="h-6 w-6" />

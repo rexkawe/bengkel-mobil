@@ -39,7 +39,7 @@ const AdminLogin = () => {
       <div className="max-w-md w-full space-y-8">
         {/* Header */}
         <div className="text-center">
-          <div className="mx-auto w-20 h-20 bg-gradient-to-r from-primary-500 to-accent-500 rounded-2xl flex items-center justify-center mb-4">
+          <div className="mx-auto w-20 h-20 bg-gradient-to-r from-primary-500 to-blue-500 rounded-2xl flex items-center justify-center mb-4">
             <ShieldCheckIcon className="h-10 w-10 text-white" />
           </div>
           <h2 className="text-3xl font-bold text-primary-700 mb-2">
@@ -120,7 +120,7 @@ const AdminLogin = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-accent-500 text-white py-3 px-4 rounded-lg hover:bg-accent-600 focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 transition-all duration-200 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-blue-500 text-white py-3 px-4 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <div className="flex items-center justify-center">
@@ -139,7 +139,7 @@ const AdminLogin = () => {
               Bukan admin?{' '}
               <Link
                 to="/login"
-                className="text-accent-600 hover:text-accent-700 font-semibold"
+               className="text-blue-600 hover:text-blue-700 font-semibold"
               >
                 Masuk sebagai Customer
               </Link>

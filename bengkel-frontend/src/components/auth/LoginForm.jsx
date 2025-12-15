@@ -149,7 +149,7 @@ const LoginForm = ({ onSwitchToRegister }) => {
           Belum punya akun?{' '}
           <button
             onClick={onSwitchToRegister}
-            className="text-accent-600 hover:text-accent-700 font-semibold"
+            className="text-blue-600 hover:text-blue-700 font-semibold"
           >
             Daftar sekarang
           </button>

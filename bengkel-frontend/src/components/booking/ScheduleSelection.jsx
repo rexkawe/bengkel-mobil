@@ -106,7 +106,7 @@ const ScheduleSelection = () => {
         {/* Date Selection */}
         <div className="bg-white rounded-xl shadow-lg p-6">
           <div className="flex items-center space-x-2 mb-6">
-            <CalendarDaysIcon className="h-6 w-6 text-accent-500" />
+            <CalendarDaysIcon className="h-6 w-6 text-blue-500" />
             <h3 className="text-xl font-semibold text-primary-700">Pilih Tanggal</h3>
           </div>
 
@@ -120,7 +120,7 @@ const ScheduleSelection = () => {
                   key={index}
                   onClick={() => handleDateSelect(date)}
                   className={`p-4 rounded-lg border-2 text-center transition-all ${isSelected
-                    ? 'border-accent-500 bg-accent-50 text-accent-700'
+                    ? 'border-blue-500 bg-accent-50 text-blue-700'
                     : 'border-gray-200 hover:border-primary-300 hover:bg-primary-50'
                     } ${isToday(date) ? 'ring-2 ring-blue-200' : ''}`}
                 >
@@ -137,7 +137,7 @@ const ScheduleSelection = () => {
         {/* Time Selection */}
         <div className="bg-white rounded-xl shadow-lg p-6">
           <div className="flex items-center space-x-2 mb-6">
-            <ClockIcon className="h-6 w-6 text-accent-500" />
+            <ClockIcon className="h-6 w-6 text-blue-500" />
             <h3 className="text-xl font-semibold text-primary-700">Pilih Waktu</h3>
           </div>
 
@@ -157,9 +157,9 @@ const ScheduleSelection = () => {
                     onClick={() => isAvailable && handleTimeSelect(time)}
                     disabled={!isAvailable}
                     className={`p-3 rounded-lg border-2 text-center transition-all ${isSelected
-                      ? 'border-accent-500 bg-accent-500 text-white'
+                      ? 'border-blue-500 bg-blue-500 text-white'
                       : isAvailable
-                        ? 'border-gray-200 hover:border-accent-300 hover:bg-accent-50 text-primary-700'
+                        ? 'border-gray-200 hover:border-blue-300 hover:bg-blue-50 text-primary-700'
                         : 'border-gray-100 bg-gray-50 text-gray-400 cursor-not-allowed'
                       }`}
                   >
@@ -178,8 +178,8 @@ const ScheduleSelection = () => {
       {/* Selected Schedule Summary */}
       {state.selectedDate && state.selectedTime && (
         <div className="bg-accent-50 border border-accent-200 rounded-xl p-6 mt-6">
-          <h4 className="font-semibold text-accent-700 mb-2">Jadwal Terpilih:</h4>
-          <p className="text-accent-600">
+          <h4 className="font-semibold text-blue-700 mb-2">Jadwal Terpilih:</h4>
+          <p className="text-blue-600">
             {new Date(state.selectedDate).toLocaleDateString('id-ID', {
               weekday: 'long',
               year: 'numeric',
@@ -191,7 +191,7 @@ const ScheduleSelection = () => {
           <div className="flex justify-end mt-4">
             <button
               onClick={handleNext}
-              className="px-6 py-2 bg-accent-500 text-white rounded-lg hover:bg-accent-600 transition-colors font-semibold"
+              className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-semibold"
             >
               Lanjutkan ke Data Kendaraan →
             </button>

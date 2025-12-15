@@ -239,7 +239,7 @@ const VehicleInfoForm = () => {
           </button>
           <button
             type="submit"
-            className="px-8 py-3 bg-accent-500 text-white rounded-lg hover:bg-accent-600 transition-colors font-semibold"
+            className="px-8 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-semibold"
           >
             Lanjutkan ke Konfirmasi →
           </button>

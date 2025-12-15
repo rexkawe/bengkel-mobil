@@ -112,7 +112,7 @@ const Header = () => {
 
                   <button
                     onClick={handleBookingClick}
-                    className="px-6 py-2 bg-accent-500 text-white rounded-lg hover:bg-accent-600 transition-colors font-medium"
+                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-accent-600 transition-colors font-medium"
                   >
                     Booking Servis
                   </button>
@@ -127,7 +127,7 @@ const Header = () => {
                   </Link>
                   <button
                     onClick={handleBookingClick}
-                    className="px-6 py-2 bg-accent-500 text-white rounded-lg hover:bg-accent-600 transition-colors font-medium"
+                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-accent-600 transition-colors font-medium"
                   >
                     Booking Servis
                   </button>
@@ -198,7 +198,7 @@ const Header = () => {
                     </button>
                     <button
                       onClick={handleBookingClick}
-                      className="w-full py-2 bg-accent-500 text-white rounded-lg font-medium text-center"
+                      className="w-full py-2 bg-blue-600 text-white rounded-lg font-medium text-center"
                     >
                       Booking Servis
                     </button>
@@ -214,7 +214,7 @@ const Header = () => {
                     </Link>
                     <button
                       onClick={handleBookingClick}
-                      className="w-full py-2 bg-accent-500 text-white rounded-lg font-medium text-center"
+                      className="w-full py-2 bg-blue-600 text-white rounded-lg font-medium text-center"
                     >
                       Booking Servis
                     </button>

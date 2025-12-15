@@ -68,7 +68,7 @@ const BookingConfirmation = () => {
 
       <div className="bg-white rounded-xl shadow-lg overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-primary-500 to-accent-500 text-white p-6">
+        <div className="bg-gradient-to-r from-primary-500 to-blue-500 text-white p-6">
           <div className="flex items-center space-x-3">
             <CheckCircleIcon className="h-8 w-8" />
             <div>
@@ -201,12 +201,12 @@ const BookingConfirmation = () => {
           )}
 
           {/* Total */}
-          <div className="bg-accent-50 border border-accent-200 rounded-lg p-4">
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
             <div className="flex justify-between items-center">
               <span className="text-lg font-semibold text-primary-700">
                 Total Biaya Estimasi
               </span>
-              <span className="text-2xl font-bold text-accent-600">
+              <span className="text-2xl font-bold text-blue-600">
                 {state.selectedService?.formatted_price}
               </span>
             </div>
@@ -228,7 +228,7 @@ const BookingConfirmation = () => {
             <button
               onClick={handleConfirmBooking}
               disabled={state.isLoading}
-              className="px-8 py-3 bg-accent-500 text-white rounded-lg hover:bg-accent-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-semibold flex items-center space-x-2"
+              className="px-8 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-semibold flex items-center space-x-2"
             >
               {state.isLoading ? (
                 <>

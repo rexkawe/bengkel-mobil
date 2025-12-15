@@ -213,11 +213,11 @@ const RegisterForm = ({ onSwitchToLogin }) => {
           />
           <span className="text-sm text-gray-600">
             Saya menyetujui{' '}
-            <button type="button" className="text-accent-600 hover:text-accent-700 font-medium">
+            <button type="button" className="text-blue-600 hover:text-blue-700 font-medium">
               Syarat & Ketentuan
             </button>{' '}
             dan{' '}
-            <button type="button" className="text-accent-600 hover:text-accent-700 font-medium">
+            <button type="button" className="text-blue-600 hover:text-blue-700 font-medium">
               Kebijakan Privasi
             </button>
           </span>
@@ -230,7 +230,7 @@ const RegisterForm = ({ onSwitchToLogin }) => {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-accent-500 text-white py-3 px-4 rounded-lg hover:bg-accent-600 focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 transition-all duration-200 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-blue-500 text-white py-3 px-4 rounded-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? (
             <div className="flex items-center justify-center">
@@ -249,7 +249,7 @@ const RegisterForm = ({ onSwitchToLogin }) => {
           Sudah punya akun?{' '}
           <button
             onClick={onSwitchToLogin}
-            className="text-accent-600 hover:text-accent-700 font-semibold"
+            className="text-blue-600 hover:text-blue-700 font-semibold"
           >
             Masuk di sini
           </button>

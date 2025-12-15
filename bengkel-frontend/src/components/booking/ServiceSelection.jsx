@@ -58,7 +58,7 @@ const ServiceSelection = () => {
             <div
               key={service.id}
               className={`bg-white rounded-xl shadow-lg border-2 transition-all duration-300 hover:shadow-xl cursor-pointer ${state.selectedService?.id === service.id
-                ? 'border-accent-500 ring-2 ring-accent-200'
+                ? 'border-blue-500 ring-2 ring-blue-200'
                 : 'border-gray-200 hover:border-primary-300'
                 }`}
               onClick={() => handleSelectService(service)}
@@ -85,7 +85,7 @@ const ServiceSelection = () => {
               {/* Price & Duration */}
               <div className="p-6 border-b border-gray-100">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-2xl font-bold text-accent-600">
+                  <span className="text-2xl font-bold text-blue-600">
                     {service.formatted_price || `Rp ${service.price?.toLocaleString()}`}
                   </span>
                   <span className="text-sm text-primary-500 bg-primary-50 px-3 py-1 rounded-full">
@@ -115,8 +115,8 @@ const ServiceSelection = () => {
               <div className="p-6 pt-0">
                 <button
                   className={`w-full py-3 rounded-lg font-semibold transition-all ${state.selectedService?.id === service.id
-                    ? 'bg-accent-500 text-white hover:bg-accent-600'
-                    : 'bg-primary-100 text-primary-600 hover:bg-primary-200'
+                    ? 'bg-blue-500 text-white hover:bg-blue-600'
+                    : 'bg-blue-100 text-primary-600 hover:bg-blue-200'
                     }`}
                 >
                   {state.selectedService?.id === service.id ? 'Terpilih' : 'Pilih Layanan'}
@@ -132,7 +132,7 @@ const ServiceSelection = () => {
         <div className="flex justify-end mt-8">
           <button
             onClick={handleContinue}
-            className="px-8 py-3 bg-accent-500 text-white rounded-lg hover:bg-accent-600 transition-colors font-semibold"
+            className="px-8 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-semibold"
           >
             Lanjutkan ke Jadwal →
           </button>

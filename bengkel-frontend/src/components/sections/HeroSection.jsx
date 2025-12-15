@@ -16,14 +16,14 @@ const HeroSection = () => {
           {/* Content */}
           <div className="space-y-8">
             <div className="space-y-4">
-              <div className="inline-flex items-center px-4 py-2 bg-accent-50 text-accent-700 rounded-full text-sm font-medium">
-                <ShieldCheckIcon className="h-4 w-4 mr-2" />
-                Terpercaya sejak 2014
-              </div>
+              <div className="inline-flex items-center px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-medium">
+  <ShieldCheckIcon className="h-4 w-4 mr-2" />
+  Terpercaya sejak 2014
+</div>
               
               <h1 className="text-5xl lg:text-6xl font-bold text-primary-700 leading-tight">
                 Layanan Bengkel
-                <span className="text-accent-500"> Profesional</span>
+                <span className="text-blue-600"> Profesional</span>
                 untuk Mobil Anda
               </h1>
               
@@ -42,7 +42,7 @@ const HeroSection = () => {
                 'Estimasi biaya real-time'
               ].map((feature, index) => (
                 <div key={index} className="flex items-center space-x-3">
-                  <CheckBadgeIcon className="h-6 w-6 text-accent-500 flex-shrink-0" />
+                  <CheckBadgeIcon className="h-6 w-6 text-blue-500 flex-shrink-0" />
                   <span className="text-primary-600">{feature}</span>
                 </div>
               ))}
@@ -50,12 +50,12 @@ const HeroSection = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-6">
-              <button className="px-8 py-4 bg-accent-500 text-white rounded-lg hover:bg-accent-600 transition-all duration-300 transform hover:scale-105 font-semibold text-lg shadow-lg">
+              <button className="px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 font-semibold text-lg shadow-lg hover:shadow-xl">
                 Pesan Servis Sekarang
               </button>
-              <button className="px-8 py-4 border-2 border-primary-300 text-primary-600 rounded-lg hover:border-accent-500 hover:text-accent-600 transition-all duration-300 font-semibold text-lg">
-                Lihat Layanan
-              </button>
+              <button className="px-8 py-4 border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-all duration-300 font-semibold text-lg hover:border-blue-700 hover:text-blue-700">
+  Lihat Layanan
+</button>
             </div>
 
             {/* Stats */}
@@ -86,8 +86,8 @@ const HeroSection = () => {
             {/* Floating Card 1 */}
             <div className="absolute -top-4 -left-4 bg-white rounded-xl shadow-lg p-4 animate-float">
               <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-accent-100 rounded-full flex items-center justify-center">
-                  <ClockIcon className="h-6 w-6 text-accent-600" />
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                  <ClockIcon className="h-6 w-6 text-blue-600" />
                 </div>
                 <div>
                   <div className="font-semibold text-primary-700">Cepat</div>
@@ -99,8 +99,8 @@ const HeroSection = () => {
             {/* Floating Card 2 */}
             <div className="absolute -bottom-4 -right-4 bg-white rounded-xl shadow-lg p-4 animate-float" style={{animationDelay: '2s'}}>
               <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                  <ShieldCheckIcon className="h-6 w-6 text-green-600" />
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                  <ShieldCheckIcon className="h-6 w-6 text-blue-600" />
                 </div>
                 <div>
                   <div className="font-semibold text-primary-700">Garansi</div>
