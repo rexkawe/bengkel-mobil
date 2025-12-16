@@ -13,3 +13,8 @@ bengkel-frontend/.eslintcache
 .DS_Store
 Thumbs.db
 *.log
+
+# Editor/Tools
+.claude/
+.vscode/
+.idea/
