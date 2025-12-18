@@ -23,7 +23,7 @@ const HeroSection = () => {
               
               <h1 className="text-5xl lg:text-6xl font-bold text-primary-700 leading-tight">
                 Layanan Bengkel
-                <span className="text-blue-600"> Profesional</span>
+                <span className="text-blue-600"> Profesional</span>{" "}
                 untuk Mobil Anda
               </h1>
               
