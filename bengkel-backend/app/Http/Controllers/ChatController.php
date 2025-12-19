@@ -158,13 +158,13 @@ class ChatController extends Controller
         $userMessage = strtolower($userMessage);
 
         $responses = [
-            'halo' => 'Halo! Selamat datang di Adit AutoCare. Ada yang bisa saya bantu?',
+            'halo' => 'Halo! Selamat datang di TDY Auto Service. Ada yang bisa saya bantu?',
             'servis' => 'Kami menyediakan berbagai layanan servis: servis berkala, tune up mesin, ganti ban, service rem, service AC, dan full body treatment.',
             'harga' => 'Harga servis mulai dari Rp 200.000. Bisa beri tahu jenis servis yang Anda butuhkan?',
             'jadwal' => 'Kami buka Senin-Jumat 08:00-18:00 dan Sabtu 08:00-16:00.',
             'booking' => 'Untuk booking servis, silakan klik tombol "Booking Servis" di website kami.',
             'lokasi' => 'Bengkel kami berada di Jl. Bengkel Modern No. 123, Jakarta.',
-            'default' => 'Terima kasih sudah menghubungi AutoCare. Untuk informasi lebih lanjut, silakan hubungi kami di (021) 1234-5678.'
+            'default' => 'Terima kasih sudah menghubungi TDY Auto Service. Untuk informasi lebih lanjut, silakan hubungi kami di (021) 1234-5678.'
         ];
 
         if (str_contains($userMessage, 'halo') || str_contains($userMessage, 'hi')) {

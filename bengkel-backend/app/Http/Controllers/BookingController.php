@@ -182,4 +182,41 @@ class BookingController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    public function cancel(Request $request, $id)
+    {
+        try {
+            $booking = Booking::where('user_id', $request->user()->id)
+                ->findOrFail($id);
+
+            if (!in_array($booking->status, ['pending', 'confirmed'])) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Booking tidak dapat dibatalkan karena status sudah ' . $booking->status
+                ], Response::HTTP_BAD_REQUEST);
+            }
+
+            $booking->update([
+                'status' => 'cancelled'
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Booking berhasil dibatalkan',
+                'data' => [
+                    'booking' => [
+                        'id' => $booking->id,
+                        'status' => 'cancelled'
+                    ]
+                ]
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal membatalkan booking',
+                'error' => $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

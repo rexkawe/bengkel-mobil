@@ -1,0 +1,26 @@
+# Strict Web Filter
+/*
+!/bengkel-backend/
+!/bengkel-frontend/
+!/.gitignore
+
+# Backend Laravel
+bengkel-backend/.env
+bengkel-backend/vendor/
+bengkel-backend/storage/logs/
+bengkel-backend/bootstrap/cache/
+
+# Frontend React
+bengkel-frontend/node_modules/
+bengkel-frontend/.env
+bengkel-frontend/.eslintcache
+
+# System
+.DS_Store
+Thumbs.db
+*.log
+
+# Editor/Tools
+.claude/
+.vscode/
+.idea/

@@ -42,9 +42,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/bookings', [BookingController::class, 'store']);
     Route::get('/bookings/{id}', [BookingController::class, 'show']);
     Route::get('/bookings/available-times', [BookingController::class, 'getAvailableTimes']);
+    Route::put('/bookings/{id}/cancel', [BookingController::class, 'cancel']);
 
     // Chat (Authenticated users)
     Route::apiResource('chat', ChatController::class)->only(['index', 'store']);
+
+    // Profile Update
+    Route::put('/profile', [AuthController::class, 'updateProfile']);
 });
 
 // Admin Routes - SEMUA ROUTES ADMIN DI SATU GROUP
@@ -53,16 +57,28 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function ()
     Route::get('/dashboard-stats', [AdminController::class, 'getDashboardStats']);
     Route::get('/recent-bookings', [AdminController::class, 'getRecentBookings']);
     Route::get('/all-bookings', [AdminController::class, 'getAllBookings']);
+    Route::post('/bookings', [AdminController::class, 'storeBooking']);
     Route::put('/bookings/{id}/status', [AdminController::class, 'updateBookingStatus']);
     Route::get('/chat-statistics', [AdminController::class, 'getChatStatistics']);
     
     // Customer Management
+    Route::get('/customers/stats', [CustomerController::class, 'getStats']); // Place before resource parameter routes
     Route::get('/customers', [CustomerController::class, 'index']);
+    Route::post('/customers', [CustomerController::class, 'store']);
     Route::get('/customers/{id}', [CustomerController::class, 'show']);
+    Route::put('/customers/{id}', [CustomerController::class, 'update']);
+    Route::delete('/customers/{id}', [CustomerController::class, 'destroy']);
     
     // Service Management
     Route::apiResource('services', ServiceController::class)->except(['index', 'show']);
     Route::put('/services/{id}/toggle', [ServiceController::class, 'toggleStatus']);
+
+    // System Settings
+    Route::get('/settings', [\App\Http\Controllers\SettingController::class, 'index']);
+    Route::post('/settings', [\App\Http\Controllers\SettingController::class, 'update']);
+    
+    // Admin Profile Update
+    Route::put('/profile/update', [\App\Http\Controllers\AuthController::class, 'updateProfile']);
 });
 
 // Fallback for undefined API routes

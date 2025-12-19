@@ -151,7 +151,7 @@ class ServiceController extends Controller
                 'price' => $validated['price'],
                 'duration' => $validated['duration'],
                 'category' => $validated['category'],
-                'features' => !empty($validated['features']) ? json_encode($validated['features']) : null,
+                'features' => !empty($validated['features']) ? $validated['features'] : null,
                 'icon' => $validated['icon'] ?? '🛠️',
                 'is_active' => $validated['is_active'] ?? true,
                 'order' => Service::max('order') + 1
@@ -202,10 +202,10 @@ class ServiceController extends Controller
                 'order' => 'sometimes|integer'
             ]);
 
-            // Handle features array conversion
+            // Handle features array conversion - No manual encoding needed due to Model casting
             if (isset($validated['features'])) {
                 $validated['features'] = !empty($validated['features']) 
-                    ? json_encode($validated['features']) 
+                    ? $validated['features'] 
                     : null;
             }
 
