@@ -201,6 +201,7 @@ export function AuthProvider({ children }) {
     login,
     register,
     logout,
+    refreshUser: checkAuth,
 
     // Utilities
     clearAuthData

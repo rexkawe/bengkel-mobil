@@ -21,6 +21,11 @@ export const adminService = {
     return response.data;
   },
 
+  async createBooking(data) {
+    const response = await api.post('/admin/bookings', data);
+    return response.data;
+  },
+
   async getChatStatistics() {
     const response = await api.get('/admin/chat-statistics');
     return response.data;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { Bars3Icon, XMarkIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '../../context/AuthContext';
 
@@ -7,9 +7,10 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const navigation = [
-    { name: 'Beranda', href: '#home' },
+    { name: 'Beranda', href: '/' },
     { name: 'Layanan', href: '#services' },
     { name: 'Tentang Kami', href: '#about' },
     { name: 'Hubungi', href: '#contact' },
@@ -22,9 +23,10 @@ const Header = () => {
   };
 
   const handleBookingClick = () => {
-    const bookingSection = document.getElementById('booking');
-    if (bookingSection) {
-      bookingSection.scrollIntoView({ behavior: 'smooth' });
+    if (!isAuthenticated) {
+      navigate('/register');
+    } else {
+      navigate('/booking');
     }
     setIsMenuOpen(false);
   };
@@ -39,25 +41,53 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    setIsMenuOpen(false);
+
+    if (href.startsWith('#')) {
+      // If we are not on home page, navigate to home first
+      if (location.pathname !== '/') {
+        navigate('/');
+        // Wait for navigation then scroll
+        setTimeout(() => {
+          const element = document.getElementById(href.substring(1));
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 500);
+      } else {
+        // If already on home page, just scroll
+        const element = document.getElementById(href.substring(1));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    } else {
+      navigate(href);
+      window.scrollTo(0, 0);
+    }
+  };
+
   return (
     <>
       <header className="bg-white shadow-lg sticky top-0 z-40">
         <nav className="container mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             {/* Logo */}
-            <div className="flex items-center space-x-3">
-              <div className="h-12 flex items-center justify-center rounded-lg overflow-hidden">
+            <Link to="/" className="flex items-center space-x-3" onClick={() => window.scrollTo(0, 0)}>
+              <div className="h-12 w-12 flex items-center justify-center bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <img
                   src="https://i.ibb.co.com/KjLPMgbC/logo-bengkel.jpg"
                   alt="TDY Auto Service Logo"
-                  className="h-8 w-auto object-contain"
+                  className="h-full w-full object-cover"
                 />
               </div>
               <div>
                 <h1 className="text-xl font-bold text-primary-600">TDY Auto Service</h1>
                 <p className="text-xs text-gray-500">Professional Service</p>
               </div>
-            </div>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-8">
@@ -65,7 +95,8 @@ const Header = () => {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-primary-500 hover:text-accent-500 font-medium transition-colors duration-300"
+                  onClick={(e) => handleNavClick(e, item.href)}
+                  className="text-primary-500 hover:text-accent-500 font-medium transition-colors duration-300 cursor-pointer"
                 >
                   {item.name}
                 </a>
@@ -110,12 +141,15 @@ const Header = () => {
                     Logout
                   </button>
 
-                  <button
-                    onClick={handleBookingClick}
-                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-accent-600 transition-colors font-medium"
-                  >
-                    Booking Servis
-                  </button>
+                  {/* Booking Button - Hide for Admin */}
+                  {user?.role !== 'admin' && (
+                    <button
+                      onClick={handleBookingClick}
+                      className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-accent-600 transition-colors font-medium"
+                    >
+                      Booking Servis
+                    </button>
+                  )}
                 </div>
               ) : (
                 <>
@@ -157,8 +191,8 @@ const Header = () => {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="block py-2 text-primary-500 hover:text-accent-500 font-medium"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={(e) => handleNavClick(e, item.href)}
+                  className="block py-2 text-primary-500 hover:text-accent-500 font-medium cursor-pointer"
                 >
                   {item.name}
                 </a>
@@ -196,12 +230,15 @@ const Header = () => {
                     >
                       Logout
                     </button>
-                    <button
-                      onClick={handleBookingClick}
-                      className="w-full py-2 bg-blue-600 text-white rounded-lg font-medium text-center"
-                    >
-                      Booking Servis
-                    </button>
+
+                    {user?.role !== 'admin' && (
+                      <button
+                        onClick={handleBookingClick}
+                        className="w-full py-2 bg-blue-600 text-white rounded-lg font-medium text-center"
+                      >
+                        Booking Servis
+                      </button>
+                    )}
                   </>
                 ) : (
                   <>

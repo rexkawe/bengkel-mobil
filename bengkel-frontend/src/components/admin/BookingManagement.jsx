@@ -8,9 +8,15 @@ import {
   CheckCircleIcon,
   XCircleIcon,
   ClockIcon,
-  EyeIcon
+  EyeIcon,
+  PlusIcon,
+  XMarkIcon,
+  UserIcon,
+  WrenchScrewdriverIcon,
+  TruckIcon
 } from '@heroicons/react/24/outline';
 import { adminService } from '../../services/adminService';
+import { serviceService } from '../../services/serviceService';
 
 const BookingManagement = () => {
   const [bookings, setBookings] = useState([]);
@@ -32,6 +38,22 @@ const BookingManagement = () => {
   // Debounce search
   const [debouncedSearch, setDebouncedSearch] = useState('');
 
+  // Create Modal State
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [customers, setCustomers] = useState([]);
+  const [services, setServices] = useState([]);
+  const [isLoadingForm, setIsLoadingForm] = useState(false);
+  const [createFormData, setCreateFormData] = useState({
+    customer_id: '',
+    service_id: '',
+    vehicle_plate: '',
+    vehicle_model: '',
+    vehicle_year: '',
+    booking_date: '',
+    booking_time: '',
+    complaint: ''
+  });
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearch(filters.search);
@@ -42,6 +64,12 @@ const BookingManagement = () => {
   useEffect(() => {
     fetchBookings(1);
   }, [debouncedSearch, filters.status, filters.date]);
+
+  useEffect(() => {
+    if (showCreateModal) {
+      fetchFormResources();
+    }
+  }, [showCreateModal]);
 
   const fetchBookings = async (page = 1) => {
     setLoading(true);
@@ -62,6 +90,32 @@ const BookingManagement = () => {
       console.error('Error fetching bookings:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchFormResources = async () => {
+    setIsLoadingForm(true);
+    try {
+      // Fetch all customers (limited by default pagination, might need a search dropdown for scalability, 
+      // but for "Polish" phase, fetching first page is MVP)
+      // Actually, let's fetch 'all' or a larger page if possible. adminService.getCustomers takes limit? No.
+      // We'll stick to default fetch.
+      const [customersRes, servicesRes] = await Promise.all([
+        adminService.getCustomers({ limit: 100 }), // Pass limit if backend supports handled in query?
+        serviceService.getServices()
+      ]);
+
+      if (customersRes.success) {
+        setCustomers(customersRes.data.customers);
+      }
+      if (servicesRes.success) {
+        setServices(servicesRes.data);
+      }
+    } catch (error) {
+      console.error('Error fetching form resources:', error);
+      alert('Gagal memuat data pelanggan/layanan.');
+    } finally {
+      setIsLoadingForm(false);
     }
   };
 
@@ -90,6 +144,38 @@ const BookingManagement = () => {
     setSelectedBooking(null);
   };
 
+  const handleCreateInputChange = (e) => {
+    setCreateFormData({ ...createFormData, [e.target.name]: e.target.value });
+  };
+
+  const handleCreateSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoadingForm(true);
+    try {
+      const response = await adminService.createBooking(createFormData);
+      if (response.success) {
+        alert('Booking berhasil dibuat!');
+        setShowCreateModal(false);
+        setCreateFormData({ // Reset form
+          customer_id: '',
+          service_id: '',
+          vehicle_plate: '',
+          vehicle_model: '',
+          vehicle_year: '',
+          booking_date: '',
+          booking_time: '',
+          complaint: ''
+        });
+        fetchBookings(1); // Refresh list
+      }
+    } catch (error) {
+      console.error('Error creating booking:', error);
+      alert('Gagal membuat booking: ' + (error.response?.data?.message || 'Terjadi kesalahan'));
+    } finally {
+      setIsLoadingForm(false);
+    }
+  };
+
   const getStatusColor = (status) => {
     switch (status) {
       case 'completed': return 'bg-green-100 text-green-700 border-green-200';
@@ -109,8 +195,11 @@ const BookingManagement = () => {
           <p className="text-gray-500 mt-1">Kelola semua jadwal reservasi pelanggan</p>
         </div>
         <div className="mt-4 sm:mt-0">
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-sm font-medium text-sm flex items-center">
-            <CalendarIcon className="w-5 h-5 mr-2" />
+          <button
+            onClick={() => setShowCreateModal(true)}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors shadow-sm font-medium text-sm flex items-center"
+          >
+            <PlusIcon className="w-5 h-5 mr-2" />
             Booking Baru
           </button>
         </div>
@@ -446,6 +535,198 @@ const BookingManagement = () => {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Create Booking Modal */}
+      {showCreateModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl w-full max-w-2xl shadow-2xl transform transition-all max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between p-6 border-b border-gray-100 bg-gray-50 sticky top-0 z-10">
+              <h3 className="text-lg font-bold text-gray-900 flex items-center">
+                <PlusIcon className="w-6 h-6 mr-2 text-blue-600" />
+                Buat Booking Baru (Admin)
+              </h3>
+              <button
+                onClick={() => setShowCreateModal(false)}
+                className="text-gray-400 hover:text-gray-500 transition-colors"
+                title="Tutup"
+              >
+                <XMarkIcon className="w-6 h-6" />
+              </button>
+            </div>
+
+            <form onSubmit={handleCreateSubmit} className="p-6 space-y-6">
+              {isLoadingForm ? (
+                <div className="text-center py-8">
+                  <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                  <p className="mt-2 text-gray-500">Memuat data...</p>
+                </div>
+              ) : (
+                <>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Customer Selection */}
+                    <div className="col-span-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Pilih Pelanggan <span className="text-red-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <select
+                          name="customer_id"
+                          required
+                          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none appearance-none bg-white"
+                          value={createFormData.customer_id}
+                          onChange={handleCreateInputChange}
+                        >
+                          <option value="">-- Pilih Pelanggan --</option>
+                          {customers.map(customer => (
+                            <option key={customer.id} value={customer.id}>
+                              {customer.name} - {customer.phone}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1">
+                        Pelanggan belum ada? <a href="/admin/customers" className="text-blue-600 hover:underline">Tambah di sini</a>
+                      </p>
+                    </div>
+
+                    {/* Service Selection */}
+                    <div className="col-span-2 md:col-span-1">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Layanan <span className="text-red-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <WrenchScrewdriverIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <select
+                          name="service_id"
+                          required
+                          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none appearance-none bg-white"
+                          value={createFormData.service_id}
+                          onChange={handleCreateInputChange}
+                        >
+                          <option value="">-- Pilih Layanan --</option>
+                          {services.map(service => (
+                            <option key={service.id} value={service.id}>
+                              {service.name} (Rp {Number(service.price).toLocaleString('id-ID')})
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Date & Time */}
+                    <div className="col-span-2 md:col-span-1">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Jadwal Booking <span className="text-red-500">*</span>
+                      </label>
+                      <div className="flex space-x-2">
+                        <input
+                          type="date"
+                          name="booking_date"
+                          required
+                          min={new Date().toISOString().split('T')[0]}
+                          className="w-full px-3 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                          value={createFormData.booking_date}
+                          onChange={handleCreateInputChange}
+                        />
+                        <input
+                          type="time"
+                          name="booking_time"
+                          required
+                          className="w-24 px-3 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                          value={createFormData.booking_time}
+                          onChange={handleCreateInputChange}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Vehicle Info */}
+                    <div className="col-span-2 border-t border-gray-100 pt-4">
+                      <h4 className="text-sm font-bold text-gray-800 mb-3 flex items-center">
+                        <TruckIcon className="w-5 h-5 mr-2" />
+                        Informasi Kendaraan
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                          <label className="block text-xs font-medium text-gray-700 mb-1">Plat Nomor *</label>
+                          <input
+                            type="text"
+                            name="vehicle_plate"
+                            required
+                            placeholder="B 1234 XYZ"
+                            className="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-blue-500 outline-none"
+                            value={createFormData.vehicle_plate}
+                            onChange={handleCreateInputChange}
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-medium text-gray-700 mb-1">Model Mobil *</label>
+                          <input
+                            type="text"
+                            name="vehicle_model"
+                            required
+                            placeholder="Avanza, Jazz..."
+                            className="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-blue-500 outline-none"
+                            value={createFormData.vehicle_model}
+                            onChange={handleCreateInputChange}
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-medium text-gray-700 mb-1">Tahun *</label>
+                          <input
+                            type="number"
+                            name="vehicle_year"
+                            required
+                            placeholder="2020"
+                            min="1990"
+                            max={new Date().getFullYear() + 1}
+                            className="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-blue-500 outline-none"
+                            value={createFormData.vehicle_year}
+                            onChange={handleCreateInputChange}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Complaint */}
+                    <div className="col-span-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Keluhan / Catatan
+                      </label>
+                      <textarea
+                        name="complaint"
+                        rows="3"
+                        placeholder="Contoh: Bunyi di bagian depan kanan..."
+                        className="w-full px-4 py-2 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none resize-none"
+                        value={createFormData.complaint}
+                        onChange={handleCreateInputChange}
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  <div className="pt-4 border-t border-gray-100 flex justify-end space-x-3">
+                    <button
+                      type="button"
+                      onClick={() => setShowCreateModal(false)}
+                      className="px-5 py-2.5 rounded-xl border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+                    >
+                      Batal
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={isLoadingForm}
+                      className="px-5 py-2.5 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-700 shadow-lg shadow-blue-200 transition-colors flex items-center"
+                    >
+                      <CheckCircleIcon className="w-5 h-5 mr-2" />
+                      Simpan Booking
+                    </button>
+                  </div>
+                </>
+              )}
+            </form>
           </div>
         </div>
       )}

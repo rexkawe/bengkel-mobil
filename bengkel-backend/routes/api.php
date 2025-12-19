@@ -46,6 +46,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Chat (Authenticated users)
     Route::apiResource('chat', ChatController::class)->only(['index', 'store']);
+
+    // Profile Update
+    Route::put('/profile', [AuthController::class, 'updateProfile']);
 });
 
 // Admin Routes - SEMUA ROUTES ADMIN DI SATU GROUP
@@ -54,6 +57,7 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function ()
     Route::get('/dashboard-stats', [AdminController::class, 'getDashboardStats']);
     Route::get('/recent-bookings', [AdminController::class, 'getRecentBookings']);
     Route::get('/all-bookings', [AdminController::class, 'getAllBookings']);
+    Route::post('/bookings', [AdminController::class, 'storeBooking']);
     Route::put('/bookings/{id}/status', [AdminController::class, 'updateBookingStatus']);
     Route::get('/chat-statistics', [AdminController::class, 'getChatStatistics']);
     

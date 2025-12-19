@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { CheckIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import { useBooking } from '../../context/BookingContext';
 import { serviceService } from '../../services/serviceService';
 
 const ServiceSelection = () => {
   const { state, dispatch } = useBooking();
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,12 +34,16 @@ const ServiceSelection = () => {
   };
 
   const handleContinue = () => {
+    if (!isAuthenticated) {
+      navigate('/register');
+      return;
+    }
     dispatch({ type: 'GO_TO_STEP', payload: 2 });
     navigate('/booking/schedule');
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
+    <div id="services" className="max-w-6xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-primary-700 mb-4">
           Pilih Layanan Servis

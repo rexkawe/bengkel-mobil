@@ -6,16 +6,29 @@ import {
   MapPinIcon,
   PhoneIcon,
   UserCircleIcon,
-  PlusIcon
+  PlusIcon,
+  PencilSquareIcon,
+  XMarkIcon,
+  KeyIcon
 } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { bookingService } from '../../services/bookingService';
+import { authService } from '../../services/authService';
 
 const UserDashboard = () => {
-  const { user } = useAuth();
+  const { user, refreshUser } = useAuth();
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Profile Edit State
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
+  const [profileData, setProfileData] = useState({
+    name: '',
+    email: '',
+    password: ''
+  });
 
   useEffect(() => {
     fetchBookings();
@@ -51,6 +64,42 @@ const UserDashboard = () => {
       } finally {
         setLoading(false);
       }
+    }
+  };
+
+  const handleEditProfile = () => {
+    setProfileData({
+      name: user?.name || '',
+      email: user?.email || '',
+      password: ''
+    });
+    setShowProfileModal(true);
+  };
+
+  const handleProfileSubmit = async (e) => {
+    e.preventDefault();
+    setIsUpdatingProfile(true);
+    try {
+      // Filter out empty password
+      const submitData = {
+        name: profileData.name,
+        email: profileData.email
+      };
+      if (profileData.password) {
+        submitData.password = profileData.password;
+      }
+
+      const response = await authService.updateProfile(submitData);
+      if (response.success) {
+        alert('Profil berhasil diperbarui!');
+        setShowProfileModal(false);
+        if (refreshUser) await refreshUser(); // Refresh context
+      }
+    } catch (error) {
+      console.error('Update profile error:', error);
+      alert('Gagal memperbarui profil: ' + (error.response?.data?.message || 'Terjadi kesalahan'));
+    } finally {
+      setIsUpdatingProfile(false);
     }
   };
 
@@ -258,7 +307,14 @@ const UserDashboard = () => {
 
             {/* Right Column: Profile & Info */}
             <div className="space-y-8">
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 relative">
+                <button
+                  onClick={handleEditProfile}
+                  className="absolute top-4 right-4 p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                  title="Edit Profil"
+                >
+                  <PencilSquareIcon className="w-5 h-5" />
+                </button>
                 <div className="text-center mb-6">
                   <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mx-auto mb-3">
                     <UserCircleIcon className="w-12 h-12" />
@@ -299,6 +355,82 @@ const UserDashboard = () => {
             </div>
           </div>
         )}
+
+        {/* Edit Profile Modal */}
+        {showProfileModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+            <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl transform transition-all">
+              <div className="flex items-center justify-between p-6 border-b border-gray-100">
+                <h3 className="text-lg font-bold text-gray-900 flex items-center">
+                  <UserCircleIcon className="w-6 h-6 mr-2 text-blue-600" />
+                  Edit Profil
+                </h3>
+                <button
+                  onClick={() => setShowProfileModal(false)}
+                  className="text-gray-400 hover:text-gray-500 transition-colors"
+                >
+                  <XMarkIcon className="w-6 h-6" />
+                </button>
+              </div>
+
+              <form onSubmit={handleProfileSubmit} className="p-6 space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
+                  <input
+                    type="text"
+                    required
+                    className="w-full px-4 py-2 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
+                    value={profileData.name}
+                    onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <input
+                    type="email"
+                    required
+                    className="w-full px-4 py-2 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
+                    value={profileData.email}
+                    onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
+                  />
+                </div>
+
+                <div className="pt-2 border-t border-gray-100 mt-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                    <KeyIcon className="w-4 h-4 mr-1 text-gray-400" />
+                    Ubah Password (Opsional)
+                  </label>
+                  <input
+                    type="password"
+                    placeholder="Kosongkan jika tidak ingin mengubah"
+                    className="w-full px-4 py-2 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all"
+                    value={profileData.password}
+                    onChange={(e) => setProfileData({ ...profileData, password: e.target.value })}
+                  />
+                  <p className="text-xs text-gray-500 mt-1">Minimal 6 karakter jika diisi.</p>
+                </div>
+
+                <div className="flex justify-end space-x-3 pt-4">
+                  <button
+                    type="button"
+                    onClick={() => setShowProfileModal(false)}
+                    className="px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors font-medium"
+                  >
+                    Batal
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isUpdatingProfile}
+                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-70 transition-colors font-medium shadow-lg shadow-blue-200"
+                  >
+                    {isUpdatingProfile ? 'Menyimpan...' : 'Simpan Perubahan'}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );

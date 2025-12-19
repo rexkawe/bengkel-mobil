@@ -1,12 +1,47 @@
 import React from 'react';
-import { 
-  PhoneIcon, 
-  MapPinIcon, 
+import { useNavigate, useLocation } from 'react-router-dom';
+import {
+  PhoneIcon,
+  MapPinIcon,
   ClockIcon,
-  EnvelopeIcon 
+  EnvelopeIcon
 } from '@heroicons/react/24/outline';
 
 const Footer = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const navigation = [
+    { name: 'Beranda', href: '/' },
+    { name: 'Layanan', href: '#services' },
+    { name: 'Tentang Kami', href: '#about' },
+    { name: 'Hubungi', href: '#contact' },
+  ];
+
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+
+    if (href.startsWith('#')) {
+      if (location.pathname !== '/') {
+        navigate('/');
+        setTimeout(() => {
+          const element = document.getElementById(href.substring(1));
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 500);
+      } else {
+        const element = document.getElementById(href.substring(1));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    } else {
+      navigate(href);
+      window.scrollTo(0, 0);
+    }
+  };
+
   return (
     <footer className="bg-primary-600 text-white">
       <div className="container mx-auto px-4 py-12">
@@ -24,7 +59,7 @@ const Footer = () => {
               <h2 className="text-xl font-bold">TDY Auto Service</h2>
             </div>
             <p className="text-primary-100 mb-4 max-w-md">
-              Layanan bengkel mobil modern dengan teknologi terkini untuk 
+              Layanan bengkel mobil modern dengan teknologi terkini untuk
               memberikan pengalaman servis yang terbaik untuk kendaraan Anda.
             </p>
             <div className="space-y-2">
@@ -43,10 +78,14 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-lg mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              {['Beranda', 'Layanan', 'Tentang Kami', 'Kontak'].map((item) => (
-                <li key={item}>
-                  <a href={`#${item.toLowerCase()}`} className="text-primary-100 hover:text-white transition-colors">
-                    {item}
+              {navigation.map((item) => (
+                <li key={item.name}>
+                  <a
+                    href={item.href}
+                    onClick={(e) => handleNavClick(e, item.href)}
+                    className="text-primary-100 hover:text-white transition-colors cursor-pointer"
+                  >
+                    {item.name}
                   </a>
                 </li>
               ))}

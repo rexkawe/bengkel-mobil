@@ -136,9 +136,12 @@ class AdminController extends Controller
                             'booking_date' => $booking->booking_date->format('d/m/Y'),
                             'booking_time' => $booking->booking_time,
                             'vehicle_plate' => $booking->vehicle_plate,
+                            'vehicle_model' => $booking->vehicle_model,
+                            'vehicle_year' => $booking->vehicle_year,
                             'estimated_cost' => $booking->estimated_cost,
                             'final_cost' => $booking->final_cost,
                             'created_at' => $booking->created_at->format('d/m/Y H:i'),
+                            'complaint' => $booking->complaint,
                         ];
                     }),
                     'pagination' => [
@@ -186,6 +189,63 @@ class AdminController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Gagal memperbarui status',
+                'error' => $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function storeBooking(Request $request)
+    {
+        try {
+            $request->validate([
+                'customer_id' => 'required|exists:users,id',
+                'service_id' => 'required|exists:services,id',
+                'vehicle_plate' => 'required|string|max:20',
+                'vehicle_model' => 'required|string|max:100',
+                'vehicle_year' => 'required|integer|min:1900|max:' . (date('Y') + 1),
+                'booking_date' => 'required|date|after_or_equal:today',
+                'booking_time' => 'required',
+                'complaint' => 'nullable|string'
+            ]);
+
+            // Generate Booking Code
+            $dateCode = Carbon::now()->format('dmY');
+            $randomCode = strtoupper(substr(uniqid(), -4));
+            $bookingCode = 'BK-' . $dateCode . '-' . $randomCode;
+
+            // Get Service Price for estimated cost
+            $service = \App\Models\Service::find($request->service_id);
+            $estimatedCost = $service->price;
+
+            // Get Customer info for denormalized fields
+            $customer = \App\Models\User::find($request->customer_id);
+
+            $booking = Booking::create([
+                'user_id' => $request->customer_id,
+                'service_id' => $request->service_id,
+                'booking_code' => $bookingCode,
+                'customer_name' => $customer->name,
+                'customer_phone' => $customer->phone_number,
+                'vehicle_plate' => $request->vehicle_plate,
+                'vehicle_model' => $request->vehicle_model,
+                'vehicle_year' => $request->vehicle_year,
+                'booking_date' => $request->booking_date,
+                'booking_time' => $request->booking_time,
+                'complaint' => $request->complaint,
+                'status' => 'confirmed', // Admin created bookings are auto-confirmed
+                'estimated_cost' => $estimatedCost
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Booking berhasil dibuat oleh Admin',
+                'data' => $booking
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal membuat booking',
                 'error' => $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }

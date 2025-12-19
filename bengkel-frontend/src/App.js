@@ -8,6 +8,8 @@ import { ChatProvider } from './context/ChatContext';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import HeroSection from './components/sections/HeroSection';
+import AboutSection from './components/sections/AboutSection';
+import ContactSection from './components/sections/ContactSection';
 import ServiceSelection from './components/booking/ServiceSelection';
 import ScheduleSelection from './components/booking/ScheduleSelection';
 import VehicleInfoForm from './components/booking/VehicleInfoForm';
@@ -41,6 +43,8 @@ function MainContent() {
               <div className="bg-gray-50 py-12">
                 <ServiceSelection />
               </div>
+              <AboutSection />
+              <ContactSection />
             </>
           } />
 

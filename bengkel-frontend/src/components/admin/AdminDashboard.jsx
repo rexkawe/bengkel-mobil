@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   ChartBarIcon,
   UsersIcon,
@@ -12,6 +13,7 @@ import {
 import api from '../../services/api';
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -53,6 +55,36 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleQuickAction = (action) => {
+    switch (action) {
+      case 'booking':
+        navigate('/admin/bookings');
+        break;
+      case 'service':
+        navigate('/admin/services');
+        break;
+      case 'customer':
+        navigate('/admin/customers');
+        break;
+      case 'report':
+        // For now, redirect to bookings as report source
+        navigate('/admin/bookings');
+        break;
+      default:
+        break;
+    }
+  };
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'completed': return 'bg-green-100 text-green-700 border-green-200';
+      case 'confirmed': return 'bg-blue-100 text-blue-700 border-blue-200';
+      case 'pending': return 'bg-amber-100 text-amber-700 border-amber-200';
+      case 'cancelled': return 'bg-red-100 text-red-700 border-red-200';
+      default: return 'bg-gray-100 text-gray-700 border-gray-200';
+    }
+  };
+
   const statCards = [
     {
       title: 'Total Pendapatan',
@@ -91,16 +123,6 @@ const AdminDashboard = () => {
       lightColor: 'bg-amber-50 text-amber-600'
     }
   ];
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'completed': return 'bg-green-100 text-green-700 border-green-200';
-      case 'confirmed': return 'bg-blue-100 text-blue-700 border-blue-200';
-      case 'pending': return 'bg-amber-100 text-amber-700 border-amber-200';
-      case 'cancelled': return 'bg-red-100 text-red-700 border-red-200';
-      default: return 'bg-gray-100 text-gray-700 border-gray-200';
-    }
-  };
 
   if (isLoading) {
     return (
@@ -161,7 +183,10 @@ const AdminDashboard = () => {
                 <h2 className="text-lg font-bold text-gray-800">Booking Terbaru</h2>
                 <p className="text-sm text-gray-500">Transaksi yang baru masuk sistem</p>
               </div>
-              <button className="text-sm font-medium text-blue-600 hover:text-blue-700 hover:underline">
+              <button
+                onClick={() => navigate('/admin/bookings')}
+                className="text-sm font-medium text-blue-600 hover:text-blue-700 hover:underline"
+              >
                 Lihat Semua
               </button>
             </div>
@@ -219,19 +244,35 @@ const AdminDashboard = () => {
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
             <h2 className="text-lg font-bold text-gray-800 mb-4">Aksi Cepat</h2>
             <div className="grid grid-cols-2 gap-4">
-              <button className="flex flex-col items-center justify-center p-4 rounded-xl bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors">
+              <button
+                onClick={() => handleQuickAction('booking')}
+                className="flex flex-col items-center justify-center p-4 rounded-xl bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors"
+                title="Buat Booking Baru"
+              >
                 <CalendarDaysIcon className="w-8 h-8 mb-2" />
                 <span className="text-sm font-medium">Buat Booking</span>
               </button>
-              <button className="flex flex-col items-center justify-center p-4 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition-colors">
+              <button
+                onClick={() => handleQuickAction('service')}
+                className="flex flex-col items-center justify-center p-4 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition-colors"
+                title="Tambah Layanan Baru"
+              >
                 <WrenchScrewdriverIcon className="w-8 h-8 mb-2" />
                 <span className="text-sm font-medium">Tambah Layanan</span>
               </button>
-              <button className="flex flex-col items-center justify-center p-4 rounded-xl bg-violet-50 text-violet-700 hover:bg-violet-100 transition-colors">
+              <button
+                onClick={() => handleQuickAction('customer')}
+                className="flex flex-col items-center justify-center p-4 rounded-xl bg-violet-50 text-violet-700 hover:bg-violet-100 transition-colors"
+                title="Data Pelanggan"
+              >
                 <UsersIcon className="w-8 h-8 mb-2" />
                 <span className="text-sm font-medium">Pelanggan Baru</span>
               </button>
-              <button className="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 text-gray-700 hover:bg-gray-100 transition-colors">
+              <button
+                onClick={() => handleQuickAction('report')}
+                className="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 text-gray-700 hover:bg-gray-100 transition-colors"
+                title="Lihat Laporan"
+              >
                 <ChartBarIcon className="w-8 h-8 mb-2" />
                 <span className="text-sm font-medium">Laporan</span>
               </button>

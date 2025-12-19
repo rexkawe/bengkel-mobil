@@ -1,3 +1,9 @@
+# Strict Web Filter
+/*
+!/bengkel-backend/
+!/bengkel-frontend/
+!/.gitignore
+
 # Backend Laravel
 bengkel-backend/.env
 bengkel-backend/vendor/
